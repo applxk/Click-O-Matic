@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Styling/ShootInProgress.css">
+</head>
+
+<body>
+    <!-- NavBar -->
+    <ul>
+        <li style="padding-right: 20px;"></li>
+        <li class="Logo"><a href="Home.html"><img src="logo.jpg" alt="Logo"></a></li>
+        <li><a href="#">Annouments</a></li>
+        <li><a href="#">Frames</a></li>
+        <li><a href="#">Forum</a></li>
+        <li><a href="#">Privacy</a></li>
+    </ul>
+
+    <div class="main">
+
+        <!-- Camera -->
+        <video id="webcamVideo" autoplay></video>
+
+        <!-- Filters -->
+        <div class="controls">
+            <button onclick="applyFilter('none')">No Filter</button>
+            <button onclick="applyFilter('grayscale(100%)')">Black & White</button>
+            <button onclick="applyFilter('sepia(100%)')">Sepia</button>
+            <button onclick="applyFilter('invert(100%)')">Invert</button>
+            <button onclick="applyFilter('blur(5px)')">Blur</button>
+            <button onclick="applyFilter('contrast(200%)')">High Contrast</button>
+        </div>
+    </div>
+
+<!-- JS -->
+
+    <!-- Camera -->
+    <script>
+        const webcamVideo = document.getElementById("webcamVideo");
+        const constraints = {
+            video: {
+                width: 1280,
+                height: 720,
+                facingMode: "environment"
+            }
+        };
+
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+            webcamVideo.srcObject = stream;
+        }).catch((error) => {
+            console.error(error);
+        })
+    </script>
+
+    <!-- Filters -->
+    <script>
+        function applyFilter(filter) {
+            document.getElementById("webcamVideo").style.filter = filter;
+        }
+    </script>
+    
+    </div>
+</body>
+</html>
