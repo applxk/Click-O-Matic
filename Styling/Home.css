@@ -32,7 +32,46 @@ ul {
 
 /* MainContent */
 .main {
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.content {
+  flex: 2;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.side-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+}
+
+.side-image.left {
+  left: 0;
+}
+
+.side-image.right {
+  right: 0;
+}
+
+.side-image img {
+  width: auto;
+  height: 400px;
+}
+
+/* Button */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* From Uiverse.io by adamgiebl */ 
@@ -92,8 +131,38 @@ ul {
 
 /* Footer */
 footer {
-  margin-top: 100px;
+  margin-top: 30px;
   text-align: center;
   background-color: lightgrey;
   font-size: 15px;
+}
+
+/* Overlays */
+#ribbon {
+  max-width: 15%;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column; /* Stack the images and content vertically */
+  }
+
+  .side-image img {
+    height: 150px; /* Adjusted height for mobile */
+  }
+
+  .content {
+    flex: 1;
+    margin-top: 20px;
+  }
+
+  .cssbuttons-io-button {
+    font-size: 15px; /* Adjust button size for smaller screens */
+  }
+
+  iframe {
+    width: 100%; /* Make the iframe width 100% for mobile */
+    height: 100px; /* Adjust iframe height */
+  }
 }

@@ -14,47 +14,61 @@
   <ul>
     <li style="padding-right: 20px;"></li>
     <li class="Logo"><a class="active" href="Home.html"><img src="logo.jpg" alt="Logo"></a></li>
-    <li><a href="#">Annouments</a></li>
-    <li><a href="#">Frames</a></li>
+    <li><a href="Annoucements.html">Annouments</a></li>
+    <li><a href="Frames.html">Frames</a></li>
     <li><a href="#">Forum</a></li>
-    <li><a href="#">Privacy</a></li>
+    <li><a href="Privacy.html">Privacy</a></li>
   </ul>
 
   <!-- MainContent -->
   <div class="main">
-    <h1>Hello!</h1>
-    <p><i>Welcome to Click-O-Matic click below to take a pic</i></p>
-
-    <!-- From Uiverse.io by adamgiebl -->
-    <button class="cssbuttons-io-button" onclick="window.location.href='ShootInProgress.html';">
-      Take here!
-      <div class="icon">
-        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-            fill="currentColor"></path>
-        </svg>
-      </div>
-    </button>
-
-    <!-- Spotify -->
-    <div>
-      <h4>Bonus for you 💖</h4>
-
-      <iframe style="border-radius:12px"
-        src="https://open.spotify.com/embed/playlist/58r0zv68QNnNu1qaptvHk2?utm_source=generator" width="40%"
-        height="100" frameBorder="0" allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-      </iframe>
+    <!-- Left Image -->
+    <div class="side-image left">
+      <img src="Overlays/pixelgoldfish.gif" alt="Left Image">
     </div>
 
+    <!-- Content -->
+    <div class="content">
+      <h1>Hello!</h1>
+      <p><i>Welcome to Click-O-Matic! Click below to start your journey</i></p>
+
+      <!-- From Uiverse.io by adamgiebl -->
+      <div class="button-container">
+        <button class="cssbuttons-io-button" onclick="window.location.href='Instructions.html';">
+          Let's go!
+          <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"></path>
+            </svg>
+          </div>
+        </button>
+      </div>
+
+      <img src="Overlays/ribbon.png" id="ribbon">
+
+      <!-- Spotify -->
+      <div>
+        <h4>For the vibes 🎶</h4>
+
+        <iframe style="border-radius:12px"
+          src="https://open.spotify.com/embed/playlist/58r0zv68QNnNu1qaptvHk2?utm_source=generator" width="60%"
+          height="100" frameBorder="0" allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Right Image -->
+    <div class="side-image right">
+      <img src="Overlays/pixelgoldfish.gif" alt="Right Image">
+    </div>
   </div>
 
-  <div>
-    <footer>
-      <i>made by me :]</i>
-    </footer>
-  </div>
+  <footer>
+    <i>made by me :]</i>
+  </footer>
 
 </body>
 
