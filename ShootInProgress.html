@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shooting in progress</title>
     <link rel="stylesheet" href="Styling/ShootInProgress.css">
 </head>
 
@@ -19,31 +19,46 @@
         <li><a href="#">Privacy</a></li>
     </ul>
 
-    <div class="main">
+    <!-- MainContent -->
+    <div class="container">
+        <!-- Left Side: Camera -->
+        <div class="left">
+            <div class="video-container">
+                <video id="webcamVideo" autoplay style="transform: scaleX(-1);"></video>
+                <p id="countdownDisplay" class="countdown-timer"></p>
 
-        <!-- Camera -->
-        <video id="webcamVideo" autoplay></video>
+                <!-- Overlays -->
+                <img id="heartCrown" src="Filters/heart_crown.png" alt="Heart Crown" class="filter-overlay">
+                <img id="birdCrown" src="Filters/bird_crown.png" alt="Bird Crown" class="filter-overlay">
+            </div>
 
-        <!-- Filters -->
-        <div class="controls">
-            <button onclick="applyFilter('none')">No Filter</button>
-            <button onclick="applyFilter('grayscale(100%)')">Black & White</button>
-            <button onclick="applyFilter('sepia(100%)')">Sepia</button>
-            <button onclick="applyFilter('invert(100%)')">Invert</button>
-            <button onclick="applyFilter('blur(5px)')">Blur</button>
-            <button onclick="applyFilter('contrast(200%)')">High Contrast</button>
+            <!-- Controls -->
+            <div class="controls">
+                <button onclick="startCountdown()">Start Countdown</button>
+
+                <br>
+                
+                <button onclick="applyFilter('none')">No Filter</button>
+                <button onclick="applyFilter('grayscale(100%)')">Black & White</button>
+                <button onclick="applyFilter('sepia(100%)')">Sepia</button>
+                <button onclick="toggleCrown('heart')">Heart Crown</button>
+                <button onclick="toggleCrown('bird')">Bird Crown</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Photos Taken -->
+        <div class="right">
+            <h3>Photos Taken</h3>
+            <div class="photo-grid" id="photoGrid"></div>
         </div>
     </div>
 
-<!-- JS -->
-
-    <!-- Camera -->
+    <!-- JS -->
     <script>
+        // camera
         const webcamVideo = document.getElementById("webcamVideo");
         const constraints = {
             video: {
-                width: 1280,
-                height: 720,
                 facingMode: "environment"
             }
         };
@@ -52,16 +67,89 @@
             webcamVideo.srcObject = stream;
         }).catch((error) => {
             console.error(error);
-        })
-    </script>
+        });
 
-    <!-- Filters -->
-    <script>
+        // filters
         function applyFilter(filter) {
             document.getElementById("webcamVideo").style.filter = filter;
+
+            if (filter === 'none') {
+                document.getElementById("heartCrown").style.display = 'none';
+                document.getElementById("birdCrown").style.display = 'none';
+            }
         }
+
+        // icons
+        function toggleCrown(crownType) {
+            document.getElementById("heartCrown").style.display = 'none';
+            document.getElementById("birdCrown").style.display = 'none';
+
+            if (crownType === 'heart') {
+                document.getElementById("heartCrown").style.display = 'block';
+            } else if (crownType === 'bird') {
+                document.getElementById("birdCrown").style.display = 'block';
+            }
+        }
+
+        // countdown
+        function startCountdown() {
+            let countdown = 5;
+            let photosTaken = 0;
+            const countdownDisplay = document.getElementById("countdownDisplay");
+
+            function takeNextPhoto() {
+                if (photosTaken >= 4) return; // Stop after 4 photos
+
+                countdown = 5;
+                countdownDisplay.innerText = countdown;
+                countdownDisplay.style.display = "block"; // Show the timer
+
+                const timer = setInterval(() => {
+                    countdown--;
+                    countdownDisplay.innerText = countdown > 0 ? countdown : "";
+
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        countdownDisplay.style.display = "none"; // Hide timer at 0
+                        takePicture();
+                        photosTaken++;
+                        if (photosTaken < 4) takeNextPhoto(); // Continue until 4 photos
+                    }
+                }, 1000);
+            }
+
+            takeNextPhoto();
+        }
+
+
+        // taking
+        function takePicture() {
+            console.log("Picture taken! (Implement snapshot logic here)");
+
+            // Capture photo & add to right-side grid
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            canvas.width = webcamVideo.videoWidth;
+            canvas.height = webcamVideo.videoHeight;
+            context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
+            const imageURL = canvas.toDataURL("image/png");
+
+            const imgElement = document.createElement("img");
+            imgElement.src = imageURL;
+            imgElement.classList.add("photo");
+
+            const photoGrid = document.getElementById("photoGrid");
+
+            if (photoGrid.children.length >= 4) {
+                photoGrid.removeChild(photoGrid.firstChild); // Remove oldest to keep max 4
+            }
+
+            photoGrid.appendChild(imgElement);
+        }
+
+
     </script>
-    
-    </div>
+
 </body>
+
 </html>
