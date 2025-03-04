@@ -59,6 +59,8 @@
                     <button id="nextBtn3" onclick="changeFrame('next', 'category3')">→</button>
                 </div>
             </div>
+
+            <button id="downloadBtn" class="download-button" onclick="downloadImage()">Download Image</button>
         </div>
     </div>
 
@@ -148,6 +150,79 @@
             frameOverlay.style.backgroundSize = "cover";
             frameOverlay.style.backgroundPosition = "center";
         }
+
+        function downloadImage() {
+    const photoDisplay = document.querySelector(".photo-display");
+    const frameOverlay = document.querySelector(".frame-overlay");
+
+    if (!photoDisplay || photoDisplay.children.length === 0) {
+        alert("No photos available to download!");
+        return;
+    }
+
+    // Get all photos
+    const photos = Array.from(photoDisplay.querySelectorAll("img"));
+
+    // Set correct dimensions based on CSS values
+    const imgWidth = 210;  // Matches .photo-display img { width: 210px; }
+    const imgHeight = 117; // Matches .photo-display img { height: 117px; }
+    const spacing = 3; // Extra spacing between photos
+
+    const totalHeight = (imgHeight * photos.length) + (spacing * (photos.length - 1)); 
+    const frameWidth = 210; // Matches .frame-overlay { width: 210px; }
+    const frameHeight = 530; // Matches .frame-overlay { height: 530px; }
+
+    // Create a canvas
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = frameWidth;
+    canvas.height = frameHeight; // Keep frame height constant
+
+    let loadedImages = 0;
+    const firstImageOffset = 10;
+
+    photos.forEach((photo, index) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = photo.src;
+
+        img.onload = function () {
+            const yPos = (index === 0) 
+                ? firstImageOffset  // Move first image down
+                : firstImageOffset + (index * (imgHeight + spacing));
+
+            // Flip horizontally
+            ctx.save(); // Save the current state
+            ctx.scale(-1, 1); // Flip the image
+            ctx.drawImage(img, -imgWidth, yPos, imgWidth, imgHeight); // Adjust X position after flipping
+            ctx.restore(); // Restore to normal drawing
+
+            loadedImages++;
+
+            // If all photos are loaded, overlay the frame
+            if (loadedImages === photos.length) {
+                if (frameOverlay.style.backgroundImage) {
+                    const frameSrc = frameOverlay.style.backgroundImage.slice(5, -2); // Extract URL
+                    const frame = new Image();
+                    frame.crossOrigin = "anonymous";
+                    frame.src = frameSrc;
+
+                    frame.onload = function () {
+                        ctx.drawImage(frame, 0, 0, frameWidth, frameHeight);
+
+                        // Trigger download
+                        const link = document.createElement("a");
+                        link.href = canvas.toDataURL("image/png");
+                        link.download = "framed_photostrip.png";
+                        link.click();
+                    };
+                }
+            }
+        };
+    });
+}
+
     </script>
 
 </body>
