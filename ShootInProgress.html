@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shooting in progress</title>
+    <title>Shooting in progress 📸</title>
     <link rel="stylesheet" href="Styling/ShootInProgress.css">
 </head>
 
@@ -37,7 +37,7 @@
                 <button onclick="startCountdown()">Start Countdown</button>
 
                 <br>
-                
+
                 <button onclick="applyFilter('none')">No Filter</button>
                 <button onclick="applyFilter('grayscale(100%)')">Black & White</button>
                 <button onclick="applyFilter('sepia(100%)')">Sepia</button>
@@ -59,9 +59,12 @@
         const webcamVideo = document.getElementById("webcamVideo");
         const constraints = {
             video: {
+                width: 720,
+                height: 405,
                 facingMode: "environment"
             }
         };
+
 
         navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
             webcamVideo.srcObject = stream;
@@ -97,6 +100,11 @@
             let photosTaken = 0;
             const countdownDisplay = document.getElementById("countdownDisplay");
 
+            // Reset session storage before starting the photo capture
+            sessionStorage.removeItem("capturedPhotos");
+            const photoGrid = document.getElementById("photoGrid");
+            photoGrid.innerHTML = ""; // Clear the previous photos from the grid
+
             function takeNextPhoto() {
                 if (photosTaken >= 4) return; // Stop after 4 photos
 
@@ -121,7 +129,6 @@
             takeNextPhoto();
         }
 
-
         // taking
         function takePicture() {
             console.log("Picture taken! (Implement snapshot logic here)");
@@ -137,16 +144,23 @@
             const imgElement = document.createElement("img");
             imgElement.src = imageURL;
             imgElement.classList.add("photo");
+            imgElement.style.transform = "scaleX(-1)";
 
             const photoGrid = document.getElementById("photoGrid");
-
-            if (photoGrid.children.length >= 4) {
-                photoGrid.removeChild(photoGrid.firstChild); // Remove oldest to keep max 4
-            }
-
             photoGrid.appendChild(imgElement);
-        }
 
+            // Store images in session storage
+            let storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
+            storedPhotos.push(imageURL);
+            sessionStorage.setItem("capturedPhotos", JSON.stringify(storedPhotos));
+
+            // Redirect to FrameSelection.html when 4 photos are taken
+            if (storedPhotos.length >= 4) {
+                setTimeout(() => {
+                    window.location.href = "FrameSelection.html";
+                }, 1000); // Delay for a smoother transition
+            }
+        }
 
     </script>
 

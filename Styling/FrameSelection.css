@@ -1,0 +1,128 @@
+* {
+    font-family: Poppins, Helvetica, sans-serif;
+}
+
+/* NavBar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    color: lightblue;
+}
+
+.active {
+    background-color: lightblue;
+}
+
+/* Layout for main container */
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* Left side: Photos */
+.left {
+    flex: 1;
+    padding: 10px;
+    position: relative;
+}
+
+.photo-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+}
+
+.photo-display img {
+    margin-top: 15px;
+    width: 210px;
+    height: 117px;
+    object-fit: cover;
+    position: relative;
+    margin-bottom: -24px;
+    transform: scaleX(-1);
+}
+
+/* Right side: Frame categories */
+.right {
+    flex: 1;
+    padding: 20px;
+    border-left: 1px solid #ccc;
+}
+
+/* Category buttons */
+.category-buttons {
+    display: flex;
+    justify-content: center; /* Center buttons */
+    align-items: center;     /* Center buttons */
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.category-buttons button {
+    padding: 12px 25px;  /* Adjust padding for better size */
+    color: black; /* White text */
+    border: 2px solid black;
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.category-buttons button:hover {
+    background-color: darkgrey;
+    transform: scale(1.05);
+}
+
+.frame-category {
+    display: none;
+}
+
+.frame-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frame-selector button {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.frame-selector img {
+    max-width: 200px;
+    margin: 0 10px;
+}
+
+/* Overlay for frame on photo */
+.frame-overlay {
+    position: absolute;
+    top: 30px;
+    left: 253px;
+    right: 0;
+    bottom: 0;
+    display: none;
+    z-index: 1;
+    width: 210px;
+    height: 530px;
+    box-shadow: 10px 10px 10px black;
+}

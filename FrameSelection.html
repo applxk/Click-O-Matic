@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select your frame</title>
+    <link rel="stylesheet" href="Styling/FrameSelection.css">
+</head>
+
+<body>
+    <!-- NavBar -->
+    <ul>
+        <li style="padding-right: 20px;"></li>
+        <li class="Logo"><a href="Home.html"><img src="logo.jpg" alt="Logo"></a></li>
+        <li><a href="#">Annouments</a></li>
+        <li><a href="#">Frames</a></li>
+        <li><a href="#">Forum</a></li>
+        <li><a href="#">Privacy</a></li>
+    </ul>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Left side: Photos display -->
+        <div class="left">
+            <div class="photo-display" id="photoDisplay"></div>
+            <!-- Placeholder for selected frame on top of photo -->
+            <div id="frameOverlay" class="frame-overlay"></div>
+        </div>
+
+        <!-- Right side: Frame categories and selection -->
+        <div class="right">
+            <!-- Frame category buttons -->
+            <div class="category-buttons">
+                <button onclick="showCategory('category1')">Plain</button>
+                <button onclick="showCategory('category2')">Design</button>
+                <button onclick="showCategory('category3')">Category 3</button>
+            </div>
+
+            <!-- Frame selection -->
+            <div id="category1" class="frame-category">
+                <div class="frame-selector">
+                    <button id="prevBtn1" onclick="changeFrame('prev', 'category1')">←</button>
+                    <img id="frameImage1" alt="Frame" />
+                    <button id="nextBtn1" onclick="changeFrame('next', 'category1')">→</button>
+                </div>
+            </div>
+            <div id="category2" class="frame-category" style="display: none;">
+                <div class="frame-selector">
+                    <button id="prevBtn2" onclick="changeFrame('prev', 'category2')">←</button>
+                    <img id="frameImage2" alt="Frame" />
+                    <button id="nextBtn2" onclick="changeFrame('next', 'category2')">→</button>
+                </div>
+            </div>
+            <div id="category3" class="frame-category" style="display: none;">
+                <div class="frame-selector">
+                    <button id="prevBtn3" onclick="changeFrame('prev', 'category3')">←</button>
+                    <img id="frameImage3" alt="Frame" />
+                    <button id="nextBtn3" onclick="changeFrame('next', 'category3')">→</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load stored photos from session storage
+        const storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
+        const photoDisplay = document.getElementById("photoDisplay");
+
+        // Display photos in the left column
+        storedPhotos.forEach(photoURL => {
+            const img = document.createElement("img");
+            img.src = photoURL;
+            img.classList.add("photo");
+            photoDisplay.appendChild(img);
+        });
+
+        // Frames data
+        const frames = {
+            category1: ['frame3.jpg', 'frame3.jpg', 'frame3.jpg'],
+            category2: ['Frames/b&w.png', 'Frames/compo.png', 'frame6.jpg'],
+            category3: ['frame7.jpg', 'frame8.jpg', 'frame9.jpg'],
+        };
+
+        // Show selected category
+        function showCategory(categoryId) {
+            const categories = document.querySelectorAll('.frame-category');
+            categories.forEach(category => category.style.display = 'none'); // Hide all categories
+            document.getElementById(categoryId).style.display = 'block'; // Show selected category
+
+            // Set the first image of the category
+            const categoryFrames = frames[categoryId];
+            const frameImage = document.querySelector(`#${categoryId} img`);
+            frameImage.src = categoryFrames[0]; // Display the first image
+
+            // Reset button states for each category
+            updateButtonState(categoryId);
+        }
+
+        // Change frame image in the category
+        function changeFrame(direction, categoryId) {
+            const currentFrame = document.querySelector(`#${categoryId} img`);
+            const currentSrc = currentFrame.src;
+
+            const categoryFrames = frames[categoryId];
+            let currentIndex = categoryFrames.indexOf(currentSrc.split('/').pop());
+
+            if (direction === 'next') {
+                currentIndex = (currentIndex + 1) % categoryFrames.length;
+            } else if (direction === 'prev') {
+                currentIndex = (currentIndex - 1 + categoryFrames.length) % categoryFrames.length;
+            }
+
+            currentFrame.src = categoryFrames[currentIndex];
+
+            // Update button states based on current position
+            updateButtonState(categoryId);
+
+            // Layer frame on photo
+            layerFrameOnPhoto(currentFrame.src);
+        }
+
+        // Disable or enable buttons based on current frame position
+        function updateButtonState(categoryId) {
+            const categoryFrames = frames[categoryId];
+            const currentFrame = document.querySelector(`#${categoryId} img`);
+            const currentSrc = currentFrame.src;
+
+            let currentIndex = categoryFrames.indexOf(currentSrc.split('/').pop());
+
+            // Disable or enable the "prev" button
+            document.querySelector(`#prevBtn${categoryId.charAt(categoryId.length - 1)}`).disabled = currentIndex === 0;
+
+            // Disable or enable the "next" button
+            document.querySelector(`#nextBtn${categoryId.charAt(categoryId.length - 1)}`).disabled = currentIndex === categoryFrames.length - 1;
+        }
+
+        // Layer frame on top of the photo
+        function layerFrameOnPhoto(frameSrc) {
+            const frameOverlay = document.getElementById("frameOverlay");
+            frameOverlay.style.display = "block"; // Ensure the frame is visible
+
+            // Set the frame image as the background of the overlay
+            frameOverlay.style.backgroundImage = `url(${frameSrc})`;
+            frameOverlay.style.backgroundSize = "cover";
+            frameOverlay.style.backgroundPosition = "center";
+        }
+    </script>
+
+</body>
+
+</html>
