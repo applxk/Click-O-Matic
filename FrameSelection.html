@@ -93,6 +93,9 @@
             const frameImage = document.querySelector(`#${categoryId} img`);
             frameImage.src = categoryFrames[0]; // Display the first image
 
+            // Layer the first frame on top of the photo
+            layerFrameOnPhoto(categoryFrames[0]);
+
             // Reset button states for each category
             updateButtonState(categoryId);
         }
