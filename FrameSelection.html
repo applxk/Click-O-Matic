@@ -164,23 +164,28 @@
     const photos = Array.from(photoDisplay.querySelectorAll("img"));
 
     // Set correct dimensions based on CSS values
-    const imgWidth = 210;  // Matches .photo-display img { width: 210px; }
-    const imgHeight = 117; // Matches .photo-display img { height: 117px; }
-    const spacing = 3; // Extra spacing between photos
+    const imgWidth = 210;
+    const imgHeight = 117;
+    const spacing = 3;
 
     const totalHeight = (imgHeight * photos.length) + (spacing * (photos.length - 1)); 
-    const frameWidth = 210; // Matches .frame-overlay { width: 210px; }
-    const frameHeight = 530; // Matches .frame-overlay { height: 530px; }
+    const frameWidth = 210;
+    const frameHeight = 530;
 
-    // Create a canvas
+    // Increase resolution for high-quality image
+    const scaleFactor = 2; // Adjust this for higher resolution (3 for even better)
+    const imgWidthScaled = imgWidth * scaleFactor;
+    const imgHeightScaled = imgHeight * scaleFactor;
+    const firstImageOffsetScaled = 10 * scaleFactor;
+
+    // Create a canvas with higher resolution
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    canvas.width = frameWidth;
-    canvas.height = frameHeight; // Keep frame height constant
+    canvas.width = frameWidth * scaleFactor;
+    canvas.height = frameHeight * scaleFactor;
 
     let loadedImages = 0;
-    const firstImageOffset = 10;
 
     photos.forEach((photo, index) => {
         const img = new Image();
@@ -189,29 +194,28 @@
 
         img.onload = function () {
             const yPos = (index === 0) 
-                ? firstImageOffset  // Move first image down
-                : firstImageOffset + (index * (imgHeight + spacing));
+                ? firstImageOffsetScaled
+                : firstImageOffsetScaled + (index * (imgHeightScaled + spacing * scaleFactor));
 
             // Flip horizontally
-            ctx.save(); // Save the current state
-            ctx.scale(-1, 1); // Flip the image
-            ctx.drawImage(img, -imgWidth, yPos, imgWidth, imgHeight); // Adjust X position after flipping
-            ctx.restore(); // Restore to normal drawing
+            ctx.save();
+            ctx.scale(-1, 1); 
+            ctx.drawImage(img, -imgWidthScaled, yPos, imgWidthScaled, imgHeightScaled);
+            ctx.restore();
 
             loadedImages++;
 
-            // If all photos are loaded, overlay the frame
             if (loadedImages === photos.length) {
                 if (frameOverlay.style.backgroundImage) {
-                    const frameSrc = frameOverlay.style.backgroundImage.slice(5, -2); // Extract URL
+                    const frameSrc = frameOverlay.style.backgroundImage.slice(5, -2);
                     const frame = new Image();
                     frame.crossOrigin = "anonymous";
                     frame.src = frameSrc;
 
                     frame.onload = function () {
-                        ctx.drawImage(frame, 0, 0, frameWidth, frameHeight);
+                        ctx.drawImage(frame, 0, 0, frameWidth * scaleFactor, frameHeight * scaleFactor);
 
-                        // Trigger download
+                        // Trigger download at original size
                         const link = document.createElement("a");
                         link.href = canvas.toDataURL("image/png");
                         link.download = "framed_photostrip.png";
@@ -222,6 +226,7 @@
         };
     });
 }
+
 
     </script>
 
