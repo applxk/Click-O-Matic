@@ -88,13 +88,53 @@ li a:hover:not(.active) {
   padding: 10px 15px;
   border: none;
   cursor: pointer;
-  background-color: #333;
-  color: white;
-  border-radius: 5px;
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+  border-radius: 8px; /* Rounded corners */
+    font-size: 14px; /* Smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .controls button:hover {
-  background-color: #555;
+  background-color: darkgrey;
+    transform: scale(1.05);
+}
+
+.controls .start-countdown-button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #28a745;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.controls .start-countdown-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.controls .no-filter-button {
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #a72828;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.controls .no-filter-button:hover {
+  background-color: #711212;
+  transform: scale(1.05);
 }
 
 /* PhotosGrid */

@@ -13,7 +13,6 @@
     <ul>
         <li style="padding-right: 20px;"></li>
         <li class="Logo"><a href="Home.html"><img src="logo.jpg" alt="Logo"></a></li>
-        <li><a href="#">Annouments</a></li>
         <li><a href="#">Frames</a></li>
         <li><a href="#">Forum</a></li>
         <li><a href="#">Privacy</a></li>
@@ -34,13 +33,17 @@
 
             <!-- Controls -->
             <div class="controls">
-                <button onclick="startCountdown()">Start Countdown</button>
+                <button class="start-countdown-button" onclick="startCountdown()">Start Countdown</button>
 
                 <br>
 
-                <button onclick="applyFilter('none')">No Filter</button>
+                <button class="no-filter-button" onclick="applyFilter('none')">No Filter</button>
                 <button onclick="applyFilter('grayscale(100%)')">Black & White</button>
                 <button onclick="applyFilter('sepia(100%)')">Sepia</button>
+                <button onclick="applyFilter('blur(2px)')">Soft Focus</button>
+                <button onclick="applyFilter('brightness(60%)')">Slightly Darker</button>
+
+                <br><br>
                 <button onclick="toggleCrown('heart')">Heart Crown</button>
                 <button onclick="toggleCrown('bird')">Bird Crown</button>
             </div>
