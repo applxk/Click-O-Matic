@@ -8,27 +8,34 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-}
-
-li {
+    display: flex;
+    align-items: center;
+  }
+  
+  li {
     float: left;
-}
-
-li a {
+  }
+  
+  li a {
     display: block;
     color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-}
-
-li a:hover:not(.active) {
+  }
+  
+  li a:hover:not(.active) {
     color: lightblue;
-}
-
-.active {
-    background-color: lightblue;
-}
+  }
+  
+  .active {
+    text-decoration: underline lightblue 3px;
+  }
+  
+  .Logo img {
+    width: 150px;
+    height: auto;
+  }
 
 /* Layout for main container */
 .container {

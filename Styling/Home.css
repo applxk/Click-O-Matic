@@ -4,31 +4,41 @@
 
 /* NavBar */
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-  }
-  
-  li {
-    float: left;
-  }
-  
-  li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  li a:hover:not(.active) {
-    color: lightblue;
-  }
-  
-  .active {
-    background-color: lightblue;
-  }
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  color: lightblue;
+}
+
+.active {
+  text-decoration: underline lightblue 3px;
+}
+
+.Logo img {
+  width: 150px;
+  /* Adjust the size as needed */
+  height: auto;
+  /* Maintains aspect ratio */
+}
 
 /* MainContent */
 .main {
@@ -50,7 +60,8 @@ ul {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center; /* Center vertically */
+  align-items: center;
+  /* Center vertically */
 }
 
 .side-image.left {
@@ -74,7 +85,7 @@ ul {
   margin-bottom: 20px;
 }
 
-/* From Uiverse.io by adamgiebl */ 
+/* From Uiverse.io by adamgiebl */
 .cssbuttons-io-button {
   background: lightblue;
   color: white;
@@ -146,11 +157,13 @@ footer {
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .main {
-    flex-direction: column; /* Stack the images and content vertically */
+    flex-direction: column;
+    /* Stack the images and content vertically */
   }
 
   .side-image img {
-    height: 200px; /* Adjusted height for mobile */
+    height: 200px;
+    /* Adjusted height for mobile */
   }
 
   .content {
@@ -159,11 +172,14 @@ footer {
   }
 
   .cssbuttons-io-button {
-    font-size: 15px; /* Adjust button size for smaller screens */
+    font-size: 15px;
+    /* Adjust button size for smaller screens */
   }
 
   iframe {
-    width: 100%; /* Make the iframe width 100% for mobile */
-    height: 100px; /* Adjust iframe height */
+    width: 100%;
+    /* Make the iframe width 100% for mobile */
+    height: 100px;
+    /* Adjust iframe height */
   }
 }
