@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All frames we have</title>
     <link rel="stylesheet" href="Styling/Frames.css">
 </head>
+
 <body>
     <!-- NavBar -->
     <ul>
@@ -17,8 +19,49 @@
     </ul>
 
     <!-- MainContent -->
-     <div class="container">
+    <div class="main">
+        <h1>⋆｡‧˚ʚ Frames ɞ˚‧｡⋆</h1>
+        <p><i>Check out the frames that is currently available</i></p>
 
-     </div>
+        <!-- Accordion -->
+        <div class="accordion">
+            <!-- Plain Frames -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">Plain Frames</div>
+                <div class="accordion-content">
+                    <img src="Frames/plain1.png" alt="Plain Frame 1" class="frame-img">
+                    <img src="Frames/plain2.png" alt="Plain Frame 2" class="frame-img">
+                    <img src="Frames/plain3.png" alt="Plain Frame 3" class="frame-img">
+                </div>
+            </div>
+
+            <!-- Design Frames -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">Design Frames</div>
+                <div class="accordion-content">
+                    <img src="Frames/design1.png" alt="Design Frame 1" class="frame-img">
+                    <img src="Frames/design2.png" alt="Design Frame 2" class="frame-img">
+                    <img src="Frames/design3.png" alt="Design Frame 3" class="frame-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const isOpen = content.style.display === "block";
+
+            // Close all accordion items first
+            document.querySelectorAll(".accordion-content").forEach(item => {
+                item.style.display = "none";
+            });
+
+            // Toggle only the clicked item
+            content.style.display = isOpen ? "none" : "block";
+        }
+    </script>
 </body>
+
 </html>
