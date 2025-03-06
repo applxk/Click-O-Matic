@@ -33,7 +33,8 @@
             <div class="category-buttons">
                 <button onclick="showCategory('category1')">Plain</button>
                 <button onclick="showCategory('category2')">Design</button>
-                <!-- <button onclick="showCategory('category3')">Category 3</button> -->
+                <button onclick="showCategory('category3')">Kpop</button>
+                <button onclick="showCategory('category4')">Goofy</button>
             </div>
 
             <!-- Frame selection -->
@@ -56,6 +57,13 @@
                     <button id="prevBtn3" onclick="changeFrame('prev', 'category3')">←</button>
                     <img id="frameImage3" alt="Frame" />
                     <button id="nextBtn3" onclick="changeFrame('next', 'category3')">→</button>
+                </div>
+            </div>
+            <div id="category4" class="frame-category" style="display: none;">
+                <div class="frame-selector">
+                    <button id="prevBtn4" onclick="changeFrame('prev', 'category4')">←</button>
+                    <img id="frameImage4" alt="Frame" />
+                    <button id="nextBtn4" onclick="changeFrame('next', 'category4')">→</button>
                 </div>
             </div>
 
@@ -90,9 +98,21 @@
 
         // Frames data
         const frames = {
-            category1: ['Frames/white.png', 'Frames/black.png', 'frame3.jpg'],
-            category2: ['Frames/b&w.png', 'Frames/compo.png', 'Frames/macpb.png', 'Frames/mwah.png'],
-            // category3: ['frame7.jpg', 'frame8.jpg', 'frame9.jpg'],
+
+            // plains
+            category1: ['Frames/Plains/white.png', 'Frames/Plains/black.png', 'Frames/Plains/red.png', 
+                        'Frames/Plains/pink.png', 'Frames/Plains/purple.png', 'Frames/Plains/lightblue.png',
+                        'Frames/Plains/darkblue.png', 'Frames/Plains/green.png', 'Frames/Plains/orange.png', 'Frames/Plains/yellow.png'],
+
+            // designs
+            category2: ['Frames/b&w.png', 'Frames/compo.png', 'Frames/macpb.png', 'Frames/gallerypb.png', 'Frames/mwah.png',
+                        'Frames/aceofclubs.png', 'Frames/aceofhearts.png'],
+
+            // kpop
+            category3: ['Frames/Kpop/enhaxo.png', 'Frames/Kpop/njzdemins.png',],
+
+            // Goofy
+            category4: ['Frames/Goofy/kewpiebb.png', 'Frames/Goofy/hands.png',],
         };
 
         // Show selected category
