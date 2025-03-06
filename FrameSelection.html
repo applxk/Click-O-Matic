@@ -33,7 +33,7 @@
             <div class="category-buttons">
                 <button onclick="showCategory('category1')">Plain</button>
                 <button onclick="showCategory('category2')">Design</button>
-                <button onclick="showCategory('category3')">Category 3</button>
+                <!-- <button onclick="showCategory('category3')">Category 3</button> -->
             </div>
 
             <!-- Frame selection -->
@@ -59,7 +59,19 @@
                 </div>
             </div>
 
-            <button id="downloadBtn" class="download-button" onclick="downloadImage()">Download Image</button>
+            <!-- From Uiverse.io by andrew-demchenk0 -->
+            <div class="downloadbutton">
+            <button id="downloadBtn" class="button" onclick="downloadImage()">
+                <span class="button__text">Download</span>
+                <span class="button__icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" class="svg">
+                    <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                    <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                    <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
         </div>
     </div>
 
@@ -78,9 +90,9 @@
 
         // Frames data
         const frames = {
-            category1: ['frame3.jpg', 'frame3.jpg', 'frame3.jpg'],
-            category2: ['Frames/b&w.png', 'Frames/compo.png', 'frame6.jpg'],
-            category3: ['frame7.jpg', 'frame8.jpg', 'frame9.jpg'],
+            category1: ['Frames/white.png', 'Frames/black.png', 'frame3.jpg'],
+            category2: ['Frames/b&w.png', 'Frames/compo.png', 'Frames/macpb.png', 'Frames/mwah.png'],
+            // category3: ['frame7.jpg', 'frame8.jpg', 'frame9.jpg'],
         };
 
         // Show selected category
@@ -103,26 +115,24 @@
 
         // Change frame image in the category
         function changeFrame(direction, categoryId) {
-            const currentFrame = document.querySelector(`#${categoryId} img`);
-            const currentSrc = currentFrame.src;
+    const currentFrame = document.querySelector(`#${categoryId} img`);
+    const currentSrc = currentFrame.src.split('/').pop(); // Extract file name correctly
 
-            const categoryFrames = frames[categoryId];
-            let currentIndex = categoryFrames.indexOf(currentSrc.split('/').pop());
+    const categoryFrames = frames[categoryId];
+    let currentIndex = categoryFrames.findIndex(frame => currentSrc.includes(frame.split('/').pop()));
 
-            if (direction === 'next') {
-                currentIndex = (currentIndex + 1) % categoryFrames.length;
-            } else if (direction === 'prev') {
-                currentIndex = (currentIndex - 1 + categoryFrames.length) % categoryFrames.length;
-            }
+    if (direction === 'next') {
+        currentIndex = (currentIndex + 1) % categoryFrames.length;
+    } else if (direction === 'prev') {
+        currentIndex = (currentIndex - 1 + categoryFrames.length) % categoryFrames.length;
+    }
 
-            currentFrame.src = categoryFrames[currentIndex];
+    currentFrame.src = categoryFrames[currentIndex];
 
-            // Update button states based on current position
-            updateButtonState(categoryId);
+    // Layer frame on photo
+    layerFrameOnPhoto(currentFrame.src);
+}
 
-            // Layer frame on photo
-            layerFrameOnPhoto(currentFrame.src);
-        }
 
         // Disable or enable buttons based on current frame position
         function updateButtonState(categoryId) {

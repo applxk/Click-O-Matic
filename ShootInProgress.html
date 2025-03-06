@@ -35,15 +35,13 @@
             <div class="controls">
                 <button class="start-countdown-button" onclick="startCountdown()">Start Countdown</button>
 
-                <br>
-
                 <button class="no-filter-button" onclick="applyFilter('none')">No Filter</button>
                 <button onclick="applyFilter('grayscale(100%)')">Black & White</button>
                 <button onclick="applyFilter('sepia(100%)')">Sepia</button>
                 <button onclick="applyFilter('blur(2px)')">Soft Focus</button>
                 <button onclick="applyFilter('brightness(60%)')">Slightly Darker</button>
 
-                <br><br>
+                <br>
                 <button onclick="toggleCrown('heart')">Heart Crown</button>
                 <button onclick="toggleCrown('bird')">Bird Crown</button>
             </div>
@@ -106,14 +104,14 @@
             // Reset session storage before starting the photo capture
             sessionStorage.removeItem("capturedPhotos");
             const photoGrid = document.getElementById("photoGrid");
-            photoGrid.innerHTML = ""; // Clear the previous photos from the grid
+            photoGrid.innerHTML = "";
 
             function takeNextPhoto() {
-                if (photosTaken >= 4) return; // Stop after 4 photos
+                if (photosTaken >= 4) return;
 
                 countdown = 5;
                 countdownDisplay.innerText = countdown;
-                countdownDisplay.style.display = "block"; // Show the timer
+                countdownDisplay.style.display = "block";
 
                 const timer = setInterval(() => {
                     countdown--;
@@ -121,10 +119,10 @@
 
                     if (countdown <= 0) {
                         clearInterval(timer);
-                        countdownDisplay.style.display = "none"; // Hide timer at 0
+                        countdownDisplay.style.display = "none";
                         takePicture();
                         photosTaken++;
-                        if (photosTaken < 4) takeNextPhoto(); // Continue until 4 photos
+                        if (photosTaken < 4) takeNextPhoto();
                     }
                 }, 1000);
             }
@@ -134,36 +132,60 @@
 
         // taking
         function takePicture() {
-            console.log("Picture taken! (Implement snapshot logic here)");
+    console.log("Picture taken! (Capturing with filters and properly resized overlays)");
 
-            // Capture photo & add to right-side grid
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-            canvas.width = webcamVideo.videoWidth;
-            canvas.height = webcamVideo.videoHeight;
-            context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
-            const imageURL = canvas.toDataURL("image/png");
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    canvas.width = webcamVideo.videoWidth;
+    canvas.height = webcamVideo.videoHeight;
 
-            const imgElement = document.createElement("img");
-            imgElement.src = imageURL;
-            imgElement.classList.add("photo");
-            imgElement.style.transform = "scaleX(-1)";
+    // Apply current filter when drawing video
+    context.filter = webcamVideo.style.filter;
+    context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
 
-            const photoGrid = document.getElementById("photoGrid");
-            photoGrid.appendChild(imgElement);
+    // Draw overlay filters if active (with further reduced size)
+    const heartCrown = document.getElementById("heartCrown");
+    const birdCrown = document.getElementById("birdCrown");
 
-            // Store images in session storage
-            let storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
-            storedPhotos.push(imageURL);
-            sessionStorage.setItem("capturedPhotos", JSON.stringify(storedPhotos));
+    const crownScale = 0.4;
+    const crownWidth = canvas.width * crownScale;
+    const crownHeight = crownWidth * (heartCrown.naturalHeight / heartCrown.naturalWidth);
+    
+    const crownX = (canvas.width - crownWidth) / 2;
+    const crownY = canvas.height * 0.05;
 
-            // Redirect to FrameSelection.html when 4 photos are taken
-            if (storedPhotos.length >= 4) {
-                setTimeout(() => {
-                    window.location.href = "FrameSelection.html";
-                }, 1000); // Delay for a smoother transition
-            }
-        }
+    if (heartCrown.style.display === "block") {
+        context.drawImage(heartCrown, crownX, crownY, crownWidth, crownHeight);
+    }
+
+    if (birdCrown.style.display === "block") {
+        context.drawImage(birdCrown, crownX, crownY, crownWidth, crownHeight);
+    }
+
+    // Save image
+    const imageURL = canvas.toDataURL("image/png");
+    const imgElement = document.createElement("img");
+    imgElement.src = imageURL;
+    imgElement.classList.add("photo");
+    imgElement.style.transform = "scaleX(-1)";
+
+    // Add to photo grid
+    const photoGrid = document.getElementById("photoGrid");
+    photoGrid.appendChild(imgElement);
+
+    // Store images in session storage
+    let storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
+    storedPhotos.push(imageURL);
+    sessionStorage.setItem("capturedPhotos", JSON.stringify(storedPhotos));
+
+    // Redirect after 4 photos
+    if (storedPhotos.length >= 4) {
+        setTimeout(() => {
+            window.location.href = "FrameSelection.html";
+        }, 1000);
+    }
+}
+
 
     </script>
 

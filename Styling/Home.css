@@ -35,9 +35,7 @@ li a:hover:not(.active) {
 
 .Logo img {
   width: 150px;
-  /* Adjust the size as needed */
   height: auto;
-  /* Maintains aspect ratio */
 }
 
 /* MainContent */
