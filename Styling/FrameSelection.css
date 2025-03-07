@@ -143,21 +143,24 @@ ul {
 .frame-selector img {
     max-width: 200px;
     margin: 0 10px;
+    background-color: lightgrey;
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.6);
 }
 
 /* Overlay for frame on photo */
 .frame-overlay {
     position: absolute;
     top: 30px;
-    left: 253px;
+    left: 255px;
     right: 0;
     bottom: 0;
     display: none;
     z-index: 1;
-    width: 210px;
+    width: 214px;
     height: 530px;
-    box-shadow: 10px 10px 10px black;
+    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.6);
 }
+
 
 /* From Uiverse.io by andrew-demchenk0 */ 
 /* DownloadButton */
