@@ -42,11 +42,16 @@ li a:hover:not(.active) {
     text-align: center;
 }
 
+.cat-img {
+  max-width: 200px;
+  margin-top: -50px;
+  margin-bottom: -60px;
+}
+
 /* Button */
 .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
   }
 
 /* From Uiverse.io by adamgiebl */ 

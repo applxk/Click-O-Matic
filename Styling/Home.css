@@ -138,18 +138,17 @@ li a:hover:not(.active) {
   transform: scale(0.95);
 }
 
-/* Footer */
-footer {
-  margin-top: 30px;
-  padding: 10px;
-  text-align: center;
-  background-color: lightgrey;
-  font-size: 15px;
-}
-
 /* Overlays */
 #ribbon {
   max-width: 15%;
+}
+
+h5 {
+  margin-bottom: -10px;
+}
+
+p i {
+  line-height: 1.8;
 }
 
 /* Mobile Responsive */
