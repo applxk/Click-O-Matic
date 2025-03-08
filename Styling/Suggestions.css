@@ -8,6 +8,13 @@
   margin-top: 20px;
 }
 
+.highlight {
+  background-color: lightblue;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 /* GoogleForm */
 .googleform {
   display: flex;
