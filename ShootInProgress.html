@@ -67,12 +67,17 @@
         // camera
         const webcamVideo = document.getElementById("webcamVideo");
 
-        // Camera constraints for all devices
+        // Function to determine if the device is a phone
+        function isPhone() {
+            return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+        }
+
+        // Set video constraints dynamically
         const constraints = {
             video: {
                 width: 720,
-                height: 405, // Always rectangular for all devices
-                facingMode: { ideal: "user" } // Use front camera (selfie mode)
+                height: isPhone() ? 405 : 405, // Square for phones, rectangle for others
+                facingMode: { ideal: "user" } // Use front camera for all devices
             }
         };
 
@@ -84,7 +89,6 @@
             .catch((error) => {
                 console.error("Error accessing camera:", error);
             });
-
 
         // filters
         function applyFilter(filter) {
