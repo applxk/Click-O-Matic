@@ -18,17 +18,19 @@
     <!-- MainContent -->
     <div class="main">
         <h1>⋆｡‧˚ʚ Got something to suggest? ɞ˚‧｡⋆</h1>
-        <p><i>Leave them down here! All types of comments will be greatly appreciated!</i></p>
+        <p><i>eg. Frames ideas, filter ideas, bugs, more features etc.</i></p>
+
+        <p><i>Submit them in the google form below. All types of comments will be greatly appreciated!</i></p>
+
+        <p><i>pss.. you can leave your experience on the site too</i></p>
     </div>
 
-    <!-- Suggestion Box -->
-    <div class="suggestion-box">
-        <textarea id="commentInput" placeholder="Type your suggestion here..."></textarea>
-        <button onclick="addComment()">Submit</button>
+    <!-- GoogleForm -->
+    <div class="googleform">
+        <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSdYmQzcxrypd_mzBolPqCEGauXQ5oh4bDGa5LtyG_Ltp9ADDw/viewform?embedded=true"
+            width="640" height="449" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
-
-    <!-- Sticky Notes Container -->
-    <div id="notesContainer"></div>
 
     <script>
         // Load the navbar
@@ -44,91 +46,6 @@
             const menu = document.getElementById("navbar-menu");
             menu.classList.toggle("show");
         }
-
-        const adminPassword = "iwonder"; // Change this to your own password
-
-        // Function to load notes from localStorage
-        function loadNotes() {
-            let notes = JSON.parse(localStorage.getItem("stickyNotes")) || [];
-            notes.forEach(noteData => {
-                createStickyNote(noteData.comment, noteData.x, noteData.y);
-            });
-        }
-
-        // Function to create and display a sticky note
-        function createStickyNote(commentText, x = 0, y = 0) {
-            let note = document.createElement("div");
-            note.className = "sticky-note";
-            note.innerText = commentText;
-
-            // Create delete icon using Font Awesome
-            let deleteIcon = document.createElement("span");
-            deleteIcon.className = "delete-icon";
-            deleteIcon.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Font Awesome trash icon
-            note.appendChild(deleteIcon);
-
-            // Set random or passed position
-            note.style.left = x + "px";
-            note.style.top = y + "px";
-            note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
-
-            // Add click event to delete with password
-            deleteIcon.onclick = function (event) {
-                event.stopPropagation(); // Prevent triggering the note's click event
-                let enteredPassword = prompt("Enter admin password to delete:");
-                if (enteredPassword === adminPassword) {
-                    note.remove();
-                    saveNotes(); // Save notes after deletion
-                } else if (enteredPassword !== null) {
-                    alert("Incorrect password! You are not allowed to delete.");
-                }
-            };
-
-            // Append note to container
-            document.getElementById("notesContainer").appendChild(note);
-        }
-
-        // Function to add a new comment and save it
-        function addComment() {
-            let commentText = document.getElementById("commentInput").value;
-            if (commentText.trim() === "") {
-                alert("Please enter a suggestion before submitting.");
-                return;
-            }
-
-            // Generate random position
-            let x = Math.random() * (window.innerWidth - 160);  // x position (random)
-            let y = Math.random() * (window.innerHeight * 0.3 - 160); // y position (limit to 30vh)
-
-            // Create sticky note
-            createStickyNote(commentText, x, y);
-
-            // Save the new note to localStorage
-            let notes = JSON.parse(localStorage.getItem("stickyNotes")) || [];
-            notes.push({ comment: commentText, x, y });
-            localStorage.setItem("stickyNotes", JSON.stringify(notes));
-
-            // Clear the input field
-            document.getElementById("commentInput").value = "";
-        }
-
-        // Function to save the current notes to localStorage
-        function saveNotes() {
-            let notes = [];
-            document.querySelectorAll(".sticky-note").forEach(note => {
-                notes.push({
-                    comment: note.innerText,
-                    x: parseInt(note.style.left),
-                    y: parseInt(note.style.top)
-                });
-            });
-            localStorage.setItem("stickyNotes", JSON.stringify(notes));
-        }
-
-        // Load notes when the page is loaded
-        window.onload = function () {
-            loadNotes();
-        };
     </script>
 
 </body>
