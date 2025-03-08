@@ -84,6 +84,10 @@ nav {
       width: 100%;
       padding: 15px;
     }
+
+    a {
+      margin-left: -10px;
+    }
   
     .menu-toggle {
       display: block;
