@@ -11,7 +11,7 @@
 
 <body>
     <!-- NavBar -->
-  <div id="navbar"></div>
+    <div id="navbar"></div>
 
     <!-- MainContent -->
     <div class="container">
@@ -51,35 +51,44 @@
 
     <script>
         // Load the navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading navbar:', error));
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
 
-    // Toggle Menu
-    function toggleMenu() {
-      const menu = document.getElementById("navbar-menu");
-      menu.classList.toggle("show");
-    }
+        // Toggle Menu
+        function toggleMenu() {
+            const menu = document.getElementById("navbar-menu");
+            menu.classList.toggle("show");
+        }
 
         // camera
         const webcamVideo = document.getElementById("webcamVideo");
+
+        // Function to determine if the device is a phone
+        function isPhone() {
+            return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+        }
+
+        // Set video constraints dynamically
         const constraints = {
             video: {
                 width: 720,
-                height: 405,
-                facingMode: "environment"
+                height: isPhone() ? 720 : 405, // Square for phones, rectangle for others
+                facingMode: { ideal: "user" } // Use front camera for all devices
             }
         };
 
-
-        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-            webcamVideo.srcObject = stream;
-        }).catch((error) => {
-            console.error(error);
-        });
+        // Apply the constraints to the video
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                webcamVideo.srcObject = stream;
+            })
+            .catch((error) => {
+                console.error("Error accessing camera:", error);
+            });
 
         // filters
         function applyFilter(filter) {
@@ -140,61 +149,59 @@
 
         // taking
         function takePicture() {
-    console.log("Picture taken! (Capturing with filters and properly resized overlays)");
+            console.log("Picture taken! (Capturing with filters and properly resized overlays)");
 
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    canvas.width = webcamVideo.videoWidth;
-    canvas.height = webcamVideo.videoHeight;
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            canvas.width = webcamVideo.videoWidth;
+            canvas.height = webcamVideo.videoHeight;
 
-    // Apply current filter when drawing video
-    context.filter = webcamVideo.style.filter;
-    context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
+            // Apply current filter when drawing video
+            context.filter = webcamVideo.style.filter;
+            context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
 
-    // Draw overlay filters if active (with further reduced size)
-    const heartCrown = document.getElementById("heartCrown");
-    const birdCrown = document.getElementById("birdCrown");
+            // Draw overlay filters if active (with further reduced size)
+            const heartCrown = document.getElementById("heartCrown");
+            const birdCrown = document.getElementById("birdCrown");
 
-    const crownScale = 0.4;
-    const crownWidth = canvas.width * crownScale;
-    const crownHeight = crownWidth * (heartCrown.naturalHeight / heartCrown.naturalWidth);
-    
-    const crownX = (canvas.width - crownWidth) / 2;
-    const crownY = canvas.height * 0.05;
+            const crownScale = 0.4;
+            const crownWidth = canvas.width * crownScale;
+            const crownHeight = crownWidth * (heartCrown.naturalHeight / heartCrown.naturalWidth);
 
-    if (heartCrown.style.display === "block") {
-        context.drawImage(heartCrown, crownX, crownY, crownWidth, crownHeight);
-    }
+            const crownX = (canvas.width - crownWidth) / 2;
+            const crownY = canvas.height * 0.05;
 
-    if (birdCrown.style.display === "block") {
-        context.drawImage(birdCrown, crownX, crownY, crownWidth, crownHeight);
-    }
+            if (heartCrown.style.display === "block") {
+                context.drawImage(heartCrown, crownX, crownY, crownWidth, crownHeight);
+            }
 
-    // Save image
-    const imageURL = canvas.toDataURL("image/png");
-    const imgElement = document.createElement("img");
-    imgElement.src = imageURL;
-    imgElement.classList.add("photo");
-    imgElement.style.transform = "scaleX(-1)";
+            if (birdCrown.style.display === "block") {
+                context.drawImage(birdCrown, crownX, crownY, crownWidth, crownHeight);
+            }
 
-    // Add to photo grid
-    const photoGrid = document.getElementById("photoGrid");
-    photoGrid.appendChild(imgElement);
+            // Save image
+            const imageURL = canvas.toDataURL("image/png");
+            const imgElement = document.createElement("img");
+            imgElement.src = imageURL;
+            imgElement.classList.add("photo");
+            imgElement.style.transform = "scaleX(-1)";
 
-    // Store images in session storage
-    let storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
-    storedPhotos.push(imageURL);
-    sessionStorage.setItem("capturedPhotos", JSON.stringify(storedPhotos));
+            // Add to photo grid
+            const photoGrid = document.getElementById("photoGrid");
+            photoGrid.appendChild(imgElement);
 
-    // Redirect after 4 photos
-    if (storedPhotos.length >= 4) {
-        setTimeout(() => {
-            window.location.href = "FrameSelection.html";
-        }, 1000);
-    }
-}
+            // Store images in session storage
+            let storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
+            storedPhotos.push(imageURL);
+            sessionStorage.setItem("capturedPhotos", JSON.stringify(storedPhotos));
 
-
+            // Redirect after 4 photos
+            if (storedPhotos.length >= 4) {
+                setTimeout(() => {
+                    window.location.href = "FrameSelection.html";
+                }, 1000);
+            }
+        }
     </script>
 
 </body>

@@ -29,6 +29,13 @@
   display: inline-block;
 }
 
+video {
+  transform: scaleX(-1); /* Flip the video horizontally */
+  display: block;
+  max-width: 100%; /* Prevents stretching */
+  height: auto; /* Maintains aspect ratio */
+}
+
 /* Countdown Timer */
 .countdown-timer {
   position: absolute;
