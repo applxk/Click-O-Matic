@@ -16,3 +16,10 @@
   margin-top: 20px;
   margin-bottom: 80px;
 }
+
+@media (max-width: 600px) { /* For small screens, such as phones */
+  .googleform iframe {
+    width: 100%; /* Make the iframe width responsive */
+    height: 400px; /* Adjust the height to be smaller on mobile */
+  }
+}

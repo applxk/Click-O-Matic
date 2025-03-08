@@ -116,9 +116,8 @@
 .frame-overlay {
     position: absolute;
     top: 30px;
-    left: 255px;
-    right: 0;
-    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Center it horizontally */
     display: none;
     z-index: 1;
     width: 214px;
@@ -207,4 +206,28 @@
 .button:active {
     transform: translate(3px, 3px);
     box-shadow: 0px 0px var(--main-color);
+}
+
+/* Media Queries for responsive photo-display */
+@media (max-width: 600px) { /* For phones */
+    .container {
+        flex-direction: column; /* Stack the left and right side vertically */
+    }
+
+    .right {
+        margin-top: 100px; /* Add some space above the right side */
+        border-left: none; /* Remove the border between left and right sides */
+    }
+
+    .photo-display {
+        width: 160px;  /* Further adjust width */
+        height: auto;  /* Let height adjust proportionally */
+        margin-left: 73px;
+    }
+
+    /* Adjust the individual photo sizes */
+    .photo-display img {
+        width: 182px; /* Even smaller photos for phone */
+        height:118px; /* Adjust height accordingly */
+    }
 }
