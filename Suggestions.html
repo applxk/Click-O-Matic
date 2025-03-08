@@ -6,24 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suggestions 📝</title>
     <link rel="stylesheet" href="Styling/Suggestions.css">
+    <link rel="stylesheet" href="Styling/navbar.css">
     <!-- Add Font Awesome link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
     <!-- NavBar -->
-    <ul>
-        <li style="padding-right: 20px;"></li>
-        <li class="Logo"><a href="Home.html"><img src="Overlays/click-o-matic.png" alt="Logo"></a></li>
-        <li><a href="Frames.html">Frames</a></li>
-        <li><a class="active" href="Suggestions.html">Suggestions</a></li>
-        <li><a href="Privacy.html">Privacy</a></li>
-    </ul>
+    <div id="navbar"></div>
 
     <!-- MainContent -->
     <div class="main">
         <h1>⋆｡‧˚ʚ Got something to suggest? ɞ˚‧｡⋆</h1>
-        <p><i>Leave them down here! Any types of comments will be appreciated!</i></p>
+        <p><i>Leave them down here! All types of comments will be greatly appreciated!</i></p>
     </div>
 
     <!-- Suggestion Box -->
@@ -36,90 +31,104 @@
     <div id="notesContainer"></div>
 
     <script>
+        // Load the navbar
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+        // Toggle Menu
+        function toggleMenu() {
+            const menu = document.getElementById("navbar-menu");
+            menu.classList.toggle("show");
+        }
+
         const adminPassword = "iwonder"; // Change this to your own password
 
-// Function to load notes from localStorage
-function loadNotes() {
-    let notes = JSON.parse(localStorage.getItem("stickyNotes")) || [];
-    notes.forEach(noteData => {
-        createStickyNote(noteData.comment, noteData.x, noteData.y);
-    });
-}
-
-// Function to create and display a sticky note
-function createStickyNote(commentText, x = 0, y = 0) {
-    let note = document.createElement("div");
-    note.className = "sticky-note";
-    note.innerText = commentText;
-
-    // Create delete icon using Font Awesome
-    let deleteIcon = document.createElement("span");
-    deleteIcon.className = "delete-icon";
-    deleteIcon.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Font Awesome trash icon
-    note.appendChild(deleteIcon);
-
-    // Set random or passed position
-    note.style.left = x + "px";
-    note.style.top = y + "px";
-    note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
-
-    // Add click event to delete with password
-    deleteIcon.onclick = function (event) {
-        event.stopPropagation(); // Prevent triggering the note's click event
-        let enteredPassword = prompt("Enter admin password to delete:");
-        if (enteredPassword === adminPassword) {
-            note.remove();
-            saveNotes(); // Save notes after deletion
-        } else if (enteredPassword !== null) {
-            alert("Incorrect password! You are not allowed to delete.");
+        // Function to load notes from localStorage
+        function loadNotes() {
+            let notes = JSON.parse(localStorage.getItem("stickyNotes")) || [];
+            notes.forEach(noteData => {
+                createStickyNote(noteData.comment, noteData.x, noteData.y);
+            });
         }
-    };
 
-    // Append note to container
-    document.getElementById("notesContainer").appendChild(note);
-}
+        // Function to create and display a sticky note
+        function createStickyNote(commentText, x = 0, y = 0) {
+            let note = document.createElement("div");
+            note.className = "sticky-note";
+            note.innerText = commentText;
 
-// Function to add a new comment and save it
-function addComment() {
-    let commentText = document.getElementById("commentInput").value;
-    if (commentText.trim() === "") {
-        alert("Please enter a suggestion before submitting.");
-        return;
-    }
+            // Create delete icon using Font Awesome
+            let deleteIcon = document.createElement("span");
+            deleteIcon.className = "delete-icon";
+            deleteIcon.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Font Awesome trash icon
+            note.appendChild(deleteIcon);
 
-    // Generate random position
-    let x = Math.random() * (window.innerWidth - 160);  // x position (random)
-    let y = Math.random() * (window.innerHeight * 0.3 - 160); // y position (limit to 30vh)
+            // Set random or passed position
+            note.style.left = x + "px";
+            note.style.top = y + "px";
+            note.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
 
-    // Create sticky note
-    createStickyNote(commentText, x, y);
+            // Add click event to delete with password
+            deleteIcon.onclick = function (event) {
+                event.stopPropagation(); // Prevent triggering the note's click event
+                let enteredPassword = prompt("Enter admin password to delete:");
+                if (enteredPassword === adminPassword) {
+                    note.remove();
+                    saveNotes(); // Save notes after deletion
+                } else if (enteredPassword !== null) {
+                    alert("Incorrect password! You are not allowed to delete.");
+                }
+            };
 
-    // Save the new note to localStorage
-    let notes = JSON.parse(localStorage.getItem("stickyNotes")) || [];
-    notes.push({ comment: commentText, x, y });
-    localStorage.setItem("stickyNotes", JSON.stringify(notes));
+            // Append note to container
+            document.getElementById("notesContainer").appendChild(note);
+        }
 
-    // Clear the input field
-    document.getElementById("commentInput").value = "";
-}
+        // Function to add a new comment and save it
+        function addComment() {
+            let commentText = document.getElementById("commentInput").value;
+            if (commentText.trim() === "") {
+                alert("Please enter a suggestion before submitting.");
+                return;
+            }
 
-// Function to save the current notes to localStorage
-function saveNotes() {
-    let notes = [];
-    document.querySelectorAll(".sticky-note").forEach(note => {
-        notes.push({
-            comment: note.innerText,
-            x: parseInt(note.style.left),
-            y: parseInt(note.style.top)
-        });
-    });
-    localStorage.setItem("stickyNotes", JSON.stringify(notes));
-}
+            // Generate random position
+            let x = Math.random() * (window.innerWidth - 160);  // x position (random)
+            let y = Math.random() * (window.innerHeight * 0.3 - 160); // y position (limit to 30vh)
 
-// Load notes when the page is loaded
-window.onload = function () {
-    loadNotes();
-};
+            // Create sticky note
+            createStickyNote(commentText, x, y);
+
+            // Save the new note to localStorage
+            let notes = JSON.parse(localStorage.getItem("stickyNotes")) || [];
+            notes.push({ comment: commentText, x, y });
+            localStorage.setItem("stickyNotes", JSON.stringify(notes));
+
+            // Clear the input field
+            document.getElementById("commentInput").value = "";
+        }
+
+        // Function to save the current notes to localStorage
+        function saveNotes() {
+            let notes = [];
+            document.querySelectorAll(".sticky-note").forEach(note => {
+                notes.push({
+                    comment: note.innerText,
+                    x: parseInt(note.style.left),
+                    y: parseInt(note.style.top)
+                });
+            });
+            localStorage.setItem("stickyNotes", JSON.stringify(notes));
+        }
+
+        // Load notes when the page is loaded
+        window.onload = function () {
+            loadNotes();
+        };
     </script>
 
 </body>

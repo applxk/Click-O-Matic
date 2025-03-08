@@ -6,17 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shooting in progress 📸</title>
     <link rel="stylesheet" href="Styling/ShootInProgress.css">
+    <link rel="stylesheet" href="Styling/navbar.css">
 </head>
 
 <body>
     <!-- NavBar -->
-    <ul>
-        <li style="padding-right: 20px;"></li>
-        <li class="Logo"><a href="Home.html"><img src="Overlays/click-o-matic.png" alt="Logo"></a></li>
-        <li><a href="Frames.html">Frames</a></li>
-        <li><a href="Suggestions.html">Suggestions</a></li>
-        <li><a href="Privacy.html">Privacy</a></li>
-    </ul>
+  <div id="navbar"></div>
 
     <!-- MainContent -->
     <div class="container">
@@ -54,8 +49,21 @@
         </div>
     </div>
 
-    <!-- JS -->
     <script>
+        // Load the navbar
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+
+    // Toggle Menu
+    function toggleMenu() {
+      const menu = document.getElementById("navbar-menu");
+      menu.classList.toggle("show");
+    }
+
         // camera
         const webcamVideo = document.getElementById("webcamVideo");
         const constraints = {

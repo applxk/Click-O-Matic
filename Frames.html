@@ -4,24 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All frames we have</title>
+    <title>Frames list 🖼️</title>
     <link rel="stylesheet" href="Styling/Frames.css">
+    <link rel="stylesheet" href="Styling/navbar.css">
 </head>
 
 <body>
     <!-- NavBar -->
-    <ul>
-        <li style="padding-right: 20px;"></li>
-        <li class="Logo"><a href="Home.html"><img src="Overlays/click-o-matic.png" alt="Logo"></a></li>
-        <li><a class="active" href="Frames.html">Frames</a></li>
-        <li><a href="Suggestions.html">Suggestions</a></li>
-        <li><a href="Privacy.html">Privacy</a></li>
-    </ul>
+  <div id="navbar"></div>
 
     <!-- MainContent -->
     <div class="main">
-        <h1>⋆｡‧˚ʚ Frames ɞ˚‧｡⋆</h1>
-        <p><i>Check out the frames that is currently available on the site!</i></p>
+        <h1>⋆｡‧˚ʚ Frames list ɞ˚‧｡⋆</h1>
+        <p><i>Check out the frames that are currently available on the site!</i></p>
 
         <!-- Accordion -->
         <div class="accordion">
@@ -80,6 +75,20 @@
 
     <!-- JavaScript -->
     <script>
+        // Load the navbar
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+
+    // Toggle Menu
+    function toggleMenu() {
+      const menu = document.getElementById("navbar-menu");
+      menu.classList.toggle("show");
+    }
+
         function toggleAccordion(header) {
             const content = header.nextElementSibling;
             const isOpen = content.style.display === "block";

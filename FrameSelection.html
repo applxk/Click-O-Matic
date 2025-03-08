@@ -6,17 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select your frame</title>
     <link rel="stylesheet" href="Styling/FrameSelection.css">
+    <link rel="stylesheet" href="Styling/navbar.css">
 </head>
 
 <body>
     <!-- NavBar -->
-    <ul>
-        <li style="padding-right: 20px;"></li>
-        <li class="Logo"><a href="Home.html"><img src="Overlays/click-o-matic.png" alt="Logo"></a></li>
-        <li><a href="Frames.html">Frames</a></li>
-        <li><a href="Suggestions.html">Suggestions</a></li>
-        <li><a href="Privacy.html">Privacy</a></li>
-    </ul>
+  <div id="navbar"></div>
 
     <!-- Main content -->
     <div class="container">
@@ -84,6 +79,20 @@
     </div>
 
     <script>
+        // Load the navbar
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+
+    // Toggle Menu
+    function toggleMenu() {
+      const menu = document.getElementById("navbar-menu");
+      menu.classList.toggle("show");
+    }
+
         // Load stored photos from session storage
         const storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
         const photoDisplay = document.getElementById("photoDisplay");

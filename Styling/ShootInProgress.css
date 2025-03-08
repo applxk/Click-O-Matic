@@ -2,41 +2,6 @@
   font-family: Poppins, Helvetica, sans-serif;
 }
 
-/* NavBar */
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover:not(.active) {
-  color: lightblue;
-}
-
-.active {
-  text-decoration: underline lightblue 3px;
-}
-
-.Logo img {
-  width: 150px;
-  height: auto;
-}
-
 /* Layout */
 .container {
   display: flex;
@@ -163,4 +128,112 @@ li a:hover:not(.active) {
   position: relative;
   margin-bottom: -15px;
   border-radius: 15px;
+}
+
+/* Media Query for iPad responsiveness (1024px) */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .left, .right {
+    width: 48%; /* Reduces the width of each section slightly */
+    margin-bottom: 20px;
+  }
+
+  .photo-grid {
+    display: block; /* Show the photos taken on tablet */
+    margin-top: 20px;
+  }
+
+  .controls button {
+    font-size: 12px; /* Smaller button text */
+    padding: 8px 12px;
+  }
+
+  .controls .no-filter-button {
+    font-size: 12px; /* Smaller button text */
+    padding: 8px 12px;
+  }
+
+  /* Video container stays the same size */
+  .video-container {
+    width: 80%; /* Keep the video container at a more reasonable size for tablets */
+    transform: scale(0.7); /* No scaling for iPad */
+    margin-top: -50px;
+    margin-bottom: -70px;
+    margin-left: -200px;
+  }
+
+  .countdown-timer {
+    font-size: 80px;
+    top: -10%;
+    left: 190%;
+  }
+
+  .photo-grid img {
+    width: 150px; /* Adjust photo grid size */
+    height: auto;
+    margin-bottom: -10px;
+    margin-left: 80px;
+  }
+
+  .photo-grid {
+    margin-top: -30px;
+  }
+
+  .right h3 {
+    margin-top: -230px;
+    margin-left: 100px;
+  }
+}
+
+
+/* Media Query for mobile responsiveness */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left, .right {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .photo-grid {
+    display: none;
+  }
+
+  .controls button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .controls .no-filter-button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .video-container {
+    width: 100%;
+    transform: scale(0.5);
+    transform-origin: top center;
+    margin-top: 20px;
+    margin-bottom: -200px;
+    margin-left: -150px;
+  }
+
+  .countdown-timer {
+    font-size: 80px;
+    top: -5%;
+    left: 160%;
+  }
+
+  .right h3 {
+    display: none;
+  }
 }
