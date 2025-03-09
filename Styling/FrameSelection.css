@@ -27,7 +27,7 @@
 .photo-display img {
     margin-top: 15px;
     width: 210px;
-    height: 117px;
+    height: 118px;
     object-fit: cover;
     position: relative;
     margin-bottom: -24px;
@@ -44,20 +44,28 @@
 /* Category buttons */
 .category-buttons {
     display: flex;
-    justify-content: center; /* Center buttons */
-    align-items: center;     /* Center buttons */
+    justify-content: center;
+    /* Center buttons */
+    align-items: center;
+    /* Center buttons */
     gap: 20px;
     margin-bottom: 20px;
     margin-top: -40px;
 }
 
 .category-buttons button {
-    padding: 8px 15px;  /* Smaller padding for smaller buttons */
-    color: black; /* Text color */
-    background-color: lightgrey; /* Light coral background */
-    border: 2px solid black; /* Black border */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 14px; /* Smaller font size */
+    padding: 8px 15px;
+    /* Smaller padding for smaller buttons */
+    color: black;
+    /* Text color */
+    background-color: lightgrey;
+    /* Light coral background */
+    border: 2px solid black;
+    /* Black border */
+    border-radius: 8px;
+    /* Rounded corners */
+    font-size: 14px;
+    /* Smaller font size */
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
@@ -70,7 +78,8 @@
 /* Frame selector arrow buttons */
 .frame-selector button {
     padding: 15px;
-    background-color: lightgrey; /* Light coral background */
+    background-color: lightgrey;
+    /* Light coral background */
     color: black;
     border: none;
     border-radius: 50%;
@@ -80,13 +89,16 @@
 }
 
 .frame-selector button:hover {
-    background-color: grey; /* Darker light coral on hover */
-    transform: scale(1.1); /* Slightly enlarge the button on hover */
+    background-color: grey;
+    /* Darker light coral on hover */
+    transform: scale(1.1);
+    /* Slightly enlarge the button on hover */
 }
 
 /* Arrow button styling when disabled */
 .frame-selector button:disabled {
-    background-color: #6c757d; /* Gray background when disabled */
+    background-color: #6c757d;
+    /* Gray background when disabled */
     cursor: not-allowed;
 }
 
@@ -117,7 +129,8 @@
     position: absolute;
     top: 30px;
     left: 50%;
-    transform: translateX(-50%); /* Center it horizontally */
+    transform: translateX(-50%);
+    /* Center it horizontally */
     display: none;
     z-index: 1;
     width: 214px;
@@ -126,31 +139,40 @@
 }
 
 
-/* From Uiverse.io by andrew-demchenk0 */ 
+/* From Uiverse.io by andrew-demchenk0 */
 /* DownloadButton */
 .downloadbutton {
     display: flex;
-    justify-content: center;  /* Horizontally center */
-    align-items: center;      /* Vertically center */
-    width: 100%;              /* Ensure full width for centering */
+    justify-content: center;
+    /* Horizontally center */
+    align-items: center;
+    /* Vertically center */
+    width: 100%;
+    /* Ensure full width for centering */
     margin-top: 20px;
 }
 
 .download-button-container {
     display: flex;
     justify-content: center;
-    align-items: center;  /* Ensures vertical alignment if needed */
-    width: 100%;  /* Ensures full width for centering */
+    align-items: center;
+    /* Ensures vertical alignment if needed */
+    width: 100%;
+    /* Ensures full width for centering */
     margin-top: 20px;
 }
 
 .button {
-    --main-focus: #28a745; /* Main green color */
+    --main-focus: #28a745;
+    /* Main green color */
     --font-color: #ffffff;
-    --bg-color-sub: #218838; /* Darker green */
-    --bg-color: #34c759; /* Lighter green */
-    --main-color: #1e7e34; /* Deep green */
-    
+    --bg-color-sub: #218838;
+    /* Darker green */
+    --bg-color: #34c759;
+    /* Lighter green */
+    --main-color: #1e7e34;
+    /* Deep green */
+
     position: relative;
     width: 150px;
     height: 40px;
@@ -164,7 +186,9 @@
     overflow: hidden;
 }
 
-.button, .button__icon, .button__text {
+.button,
+.button__icon,
+.button__text {
     transition: all 0.3s;
 }
 
@@ -209,25 +233,36 @@
 }
 
 /* Media Queries for responsive photo-display */
-@media (max-width: 600px) { /* For phones */
+@media (max-width: 600px) {
+
+    /* For phones */
     .container {
-        flex-direction: column; /* Stack the left and right side vertically */
+        flex-direction: column;
+        /* Stack the left and right side vertically */
     }
 
     .right {
-        margin-top: 100px; /* Add some space above the right side */
-        border-left: none; /* Remove the border between left and right sides */
+        margin-top: 100px;
+        /* Add some space above the right side */
+        border-left: none;
+        /* Remove the border between left and right sides */
     }
 
     .photo-display {
-        width: 160px;  /* Further adjust width */
-        height: auto;  /* Let height adjust proportionally */
-        margin-left: 73px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
     }
 
-    /* Adjust the individual photo sizes */
     .photo-display img {
-        width: 182px; /* Even smaller photos for phone */
-        height:118px; /* Adjust height accordingly */
+        margin-top: 15px;
+        width: 210px;
+        height: 118px;
+        object-fit: cover;
+        position: relative;
+        margin-bottom: -24px;
+        transform: scaleX(-1);
     }
 }
