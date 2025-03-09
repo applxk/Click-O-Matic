@@ -92,5 +92,9 @@ nav {
     .menu-toggle {
       display: block;
     }
+
+    .divider {
+      display: none;
+    }
   }
   
