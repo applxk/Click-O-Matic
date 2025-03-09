@@ -140,7 +140,7 @@ video {
 }
 
 /* Media Query for iPad responsiveness (1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 1300px) {
   .container {
     flex-direction: row;
     justify-content: center;
@@ -207,7 +207,7 @@ video {
   }
 }
 
-@media (min-width: 2048px) {
+@media (min-width: 1300px) {
   .crown-button {
     display: inline-block;
   }
