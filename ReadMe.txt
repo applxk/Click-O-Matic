@@ -19,3 +19,4 @@ color scheme:
 additional notes:
 - more filters
 - more frames
+- fix filters application on ipad
