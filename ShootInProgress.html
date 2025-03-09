@@ -75,9 +75,9 @@
         // Set video constraints dynamically
         const constraints = {
             video: {
-                width: 720,
-                height: isPhone() ? 270 : 405, // Square for phones, rectangle for others
-                facingMode: { ideal: "user" } // Use front camera for all devices
+                width: isPhone() ? 405 : 720,
+                height: isPhone() ? 720 : 405,
+                facingMode: { ideal: "user" }
             }
         };
 
