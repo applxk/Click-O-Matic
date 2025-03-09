@@ -120,7 +120,7 @@ p i {
 }
 
 /* Mobile Responsive */
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .main {
     flex-direction: column;
     /* Stack the images and content vertically */

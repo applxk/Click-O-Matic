@@ -152,7 +152,7 @@
             takeNextPhoto();
         }
 
-        // taking
+        // Taking picture with applied filter
         function takePicture() {
             console.log("Picture taken! (Capturing with filters and properly resized overlays)");
 
@@ -161,7 +161,7 @@
             canvas.width = webcamVideo.videoWidth;
             canvas.height = webcamVideo.videoHeight;
 
-            // Apply the current filter to the canvas before drawing the video
+            // Apply the current filter to the canvas context before drawing the video
             context.filter = currentFilter; // Apply the selected filter to the canvas
             context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
 
