@@ -115,6 +115,10 @@ p i {
   line-height: 1.8;
 }
 
+.updates {
+  margin-top: -20px;
+}
+
 /* Mobile Responsive */
 @media (max-width: 900px) {
   .main {
