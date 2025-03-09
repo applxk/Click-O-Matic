@@ -72,17 +72,14 @@
             return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
         }
 
-        const isIpad = /iPad|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
-
+        // Set video constraints dynamically
         const constraints = {
             video: {
-                width: isIpad ? 1280 : (isPhone() ? 405 : 720),  // Standard aspect ratio for iPad
-                height: isIpad ? 720 : (isPhone() ? 720 : 405),
-                facingMode: { ideal: "user" },
-                resizeMode: "none" // Prevents unwanted cropping/stretching
+                width: isPhone() ? 405 : 720,
+                height: isPhone() ? 720 : 405,
+                facingMode: { ideal: "user" }
             }
         };
-
 
         // Apply the constraints to the video
         navigator.mediaDevices.getUserMedia(constraints)

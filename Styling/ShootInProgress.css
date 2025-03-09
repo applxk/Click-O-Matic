@@ -203,15 +203,6 @@ video {
   }
 }
 
-
-@media (max-width: 1024px) and (min-width: 768px) {
-  video {
-      object-fit: contain; /* Prevent stretching */
-      width: 100%;
-      height: auto;
-  }
-}
-
 /* Media Query for mobile responsiveness */
 @media (max-width: 600px) {
   .container {
