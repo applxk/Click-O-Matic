@@ -11,7 +11,7 @@
 
 <body>
     <!-- NavBar -->
-  <div id="navbar"></div>
+    <div id="navbar"></div>
 
     <!-- Main content -->
     <div class="container">
@@ -65,34 +65,40 @@
 
             <!-- From Uiverse.io by andrew-demchenk0 -->
             <div class="downloadbutton">
-            <button id="downloadBtn" class="button" onclick="downloadImage()">
-                <span class="button__text">Download</span>
-                <span class="button__icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" class="svg">
-                    <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
-                    <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
-                    <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
-                  </svg>
-                </span>
-              </button>
+                <button id="downloadBtn" class="button" onclick="downloadImage()">
+                    <span class="button__text">Download</span>
+                    <span class="button__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" class="svg">
+                            <path
+                                d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z">
+                            </path>
+                            <path
+                                d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z">
+                            </path>
+                            <path
+                                d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z">
+                            </path>
+                        </svg>
+                    </span>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         // Load the navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading navbar:', error));
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
 
-    // Toggle Menu
-    function toggleMenu() {
-      const menu = document.getElementById("navbar-menu");
-      menu.classList.toggle("show");
-    }
+        // Toggle Menu
+        function toggleMenu() {
+            const menu = document.getElementById("navbar-menu");
+            menu.classList.toggle("show");
+        }
 
         // Load stored photos from session storage
         const storedPhotos = JSON.parse(sessionStorage.getItem("capturedPhotos")) || [];
@@ -110,13 +116,13 @@
         const frames = {
 
             // plains
-            category1: ['Frames/Plains/white.png', 'Frames/Plains/black.png', 'Frames/Plains/red.png', 
-                        'Frames/Plains/pink.png', 'Frames/Plains/purple.png', 'Frames/Plains/lightblue.png',
-                        'Frames/Plains/darkblue.png', 'Frames/Plains/green.png', 'Frames/Plains/orange.png', 'Frames/Plains/yellow.png'],
+            category1: ['Frames/Plains/white.png', 'Frames/Plains/black.png', 'Frames/Plains/red.png',
+                'Frames/Plains/pink.png', 'Frames/Plains/purple.png', 'Frames/Plains/lightblue.png',
+                'Frames/Plains/darkblue.png', 'Frames/Plains/green.png', 'Frames/Plains/orange.png', 'Frames/Plains/yellow.png'],
 
             // designs
             category2: ['Frames/b&w.png', 'Frames/compo.png', 'Frames/macpb.png', 'Frames/gallerypb.png', 'Frames/mwah.png',
-                        'Frames/aceofclubs.png', 'Frames/aceofhearts.png'],
+                'Frames/aceofclubs.png', 'Frames/aceofhearts.png'],
 
             // kpop
             category3: ['Frames/Kpop/enhaxo.png', 'Frames/Kpop/njzdemins.png',],
@@ -145,23 +151,23 @@
 
         // Change frame image in the category
         function changeFrame(direction, categoryId) {
-    const currentFrame = document.querySelector(`#${categoryId} img`);
-    const currentSrc = currentFrame.src.split('/').pop(); // Extract file name correctly
+            const currentFrame = document.querySelector(`#${categoryId} img`);
+            const currentSrc = currentFrame.src.split('/').pop(); // Extract file name correctly
 
-    const categoryFrames = frames[categoryId];
-    let currentIndex = categoryFrames.findIndex(frame => currentSrc.includes(frame.split('/').pop()));
+            const categoryFrames = frames[categoryId];
+            let currentIndex = categoryFrames.findIndex(frame => currentSrc.includes(frame.split('/').pop()));
 
-    if (direction === 'next') {
-        currentIndex = (currentIndex + 1) % categoryFrames.length;
-    } else if (direction === 'prev') {
-        currentIndex = (currentIndex - 1 + categoryFrames.length) % categoryFrames.length;
-    }
+            if (direction === 'next') {
+                currentIndex = (currentIndex + 1) % categoryFrames.length;
+            } else if (direction === 'prev') {
+                currentIndex = (currentIndex - 1 + categoryFrames.length) % categoryFrames.length;
+            }
 
-    currentFrame.src = categoryFrames[currentIndex];
+            currentFrame.src = categoryFrames[currentIndex];
 
-    // Layer frame on photo
-    layerFrameOnPhoto(currentFrame.src);
-}
+            // Layer frame on photo
+            layerFrameOnPhoto(currentFrame.src);
+        }
 
 
         // Disable or enable buttons based on current frame position
@@ -190,85 +196,85 @@
             frameOverlay.style.backgroundPosition = "center";
         }
 
-        function downloadImage() {
-    const photoDisplay = document.querySelector(".photo-display");
-    const frameOverlay = document.querySelector(".frame-overlay");
-
-    if (!photoDisplay || photoDisplay.children.length === 0) {
-        alert("No photos available to download!");
-        return;
-    }
-
-    // Get all photos
-    const photos = Array.from(photoDisplay.querySelectorAll("img"));
-
-    // Set correct dimensions based on CSS values
-    const imgWidth = 210;
-    const imgHeight = 117;
-    const spacing = 3;
-
-    const totalHeight = (imgHeight * photos.length) + (spacing * (photos.length - 1)); 
-    const frameWidth = 210;
-    const frameHeight = 530;
-
-    // Increase resolution for high-quality image
-    const scaleFactor = 2; // Adjust this for higher resolution (3 for even better)
-    const imgWidthScaled = imgWidth * scaleFactor;
-    const imgHeightScaled = imgHeight * scaleFactor;
-    const firstImageOffsetScaled = 10 * scaleFactor;
-
-    // Create a canvas with higher resolution
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = frameWidth * scaleFactor;
-    canvas.height = frameHeight * scaleFactor;
-
-    let loadedImages = 0;
-
-    photos.forEach((photo, index) => {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = photo.src;
-
-        img.onload = function () {
-            const yPos = (index === 0) 
-                ? firstImageOffsetScaled
-                : firstImageOffsetScaled + (index * (imgHeightScaled + spacing * scaleFactor));
-
-            // Flip horizontally
-            ctx.save();
-            ctx.scale(-1, 1); 
-            ctx.drawImage(img, -imgWidthScaled, yPos, imgWidthScaled, imgHeightScaled);
-            ctx.restore();
-
-            loadedImages++;
-
-            if (loadedImages === photos.length) {
-                if (frameOverlay.style.backgroundImage) {
-                    const frameSrc = frameOverlay.style.backgroundImage.slice(5, -2);
-                    const frame = new Image();
-                    frame.crossOrigin = "anonymous";
-                    frame.src = frameSrc;
-
-                    frame.onload = function () {
-                        ctx.drawImage(frame, 0, 0, frameWidth * scaleFactor, frameHeight * scaleFactor);
-
-                        // Trigger download at original size
-                        const link = document.createElement("a");
-                        link.href = canvas.toDataURL("image/png");
-                        link.download = "framed_photostrip.png";
-                        link.click();
-                    };
-                }
-            }
+        window.onload = function () {
+            showCategory('category1'); // Show the first category and default frame (white.png) on page load
         };
-    });
-}
 
+        function downloadImage() {
+            const photoDisplay = document.querySelector(".photo-display");
+            const frameOverlay = document.querySelector(".frame-overlay");
 
+            if (!photoDisplay || photoDisplay.children.length === 0) {
+                alert("No photos available to download!");
+                return;
+            }
+
+            // Get all photos
+            const photos = Array.from(photoDisplay.querySelectorAll("img"));
+
+            // Set correct dimensions based on CSS values
+            const imgWidth = 210;
+            const imgHeight = 117;
+            const spacing = 3;
+
+            const totalHeight = (imgHeight * photos.length) + (spacing * (photos.length - 1));
+            const frameWidth = 210;
+            const frameHeight = 530;
+
+            // Increase resolution for high-quality image
+            const scaleFactor = 2; // Adjust this for higher resolution (3 for even better)
+            const imgWidthScaled = imgWidth * scaleFactor;
+            const imgHeightScaled = imgHeight * scaleFactor;
+            const firstImageOffsetScaled = 10 * scaleFactor;
+
+            // Create a canvas with higher resolution
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = frameWidth * scaleFactor;
+            canvas.height = frameHeight * scaleFactor;
+
+            let loadedImages = 0;
+
+            photos.forEach((photo, index) => {
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.src = photo.src;
+
+                img.onload = function () {
+                    const yPos = (index === 0)
+                        ? firstImageOffsetScaled
+                        : firstImageOffsetScaled + (index * (imgHeightScaled + spacing * scaleFactor));
+
+                    // Flip horizontally
+                    ctx.save();
+                    ctx.scale(-1, 1);
+                    ctx.drawImage(img, -imgWidthScaled, yPos, imgWidthScaled, imgHeightScaled);
+                    ctx.restore();
+
+                    loadedImages++;
+
+                    if (loadedImages === photos.length) {
+                        if (frameOverlay.style.backgroundImage) {
+                            const frameSrc = frameOverlay.style.backgroundImage.slice(5, -2);
+                            const frame = new Image();
+                            frame.crossOrigin = "anonymous";
+                            frame.src = frameSrc;
+
+                            frame.onload = function () {
+                                ctx.drawImage(frame, 0, 0, frameWidth * scaleFactor, frameHeight * scaleFactor);
+
+                                // Trigger download at original size
+                                const link = document.createElement("a");
+                                link.href = canvas.toDataURL("image/png");
+                                link.download = "framed_photostrip.png";
+                                link.click();
+                            };
+                        }
+                    }
+                };
+            });
+        }
     </script>
-
 </body>
-
 </html>
