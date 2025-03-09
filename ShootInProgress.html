@@ -158,8 +158,10 @@
 
             const canvas = document.createElement("canvas");
             const context = canvas.getContext("2d");
-            canvas.width = webcamVideo.videoWidth;
-            canvas.height = webcamVideo.videoHeight;
+
+            // Ensure canvas size matches the video element's actual dimensions
+            canvas.width = webcamVideo.videoWidth || webcamVideo.clientWidth;
+            canvas.height = webcamVideo.videoHeight || webcamVideo.clientHeight;
 
             // Apply the current filter to the canvas context before drawing the video
             context.filter = currentFilter; // Apply the selected filter to the canvas
