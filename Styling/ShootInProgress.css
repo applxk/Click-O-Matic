@@ -207,7 +207,7 @@ video {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 2048px) {
   .crown-button {
     display: inline-block;
   }

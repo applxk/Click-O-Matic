@@ -91,9 +91,14 @@
             });
 
         // filters
+        let currentFilter = 'none'; // Track the currently applied filter
+
+        // Function to apply the selected filter
         function applyFilter(filter) {
+            currentFilter = filter;
             document.getElementById("webcamVideo").style.filter = filter;
 
+            // Reset the crown overlays if the filter is changed
             if (filter === 'none') {
                 document.getElementById("heartCrown").style.display = 'none';
                 document.getElementById("birdCrown").style.display = 'none';
@@ -157,9 +162,7 @@
             canvas.height = webcamVideo.videoHeight;
 
             // Apply the current filter to the canvas before drawing the video
-            // This ensures the filter gets applied correctly
-            const currentFilter = webcamVideo.style.filter;
-            context.filter = currentFilter;  // Apply the same filter as the video
+            context.filter = currentFilter; // Apply the selected filter to the canvas
             context.drawImage(webcamVideo, 0, 0, canvas.width, canvas.height);
 
             // Draw overlay filters if active (with further reduced size)
