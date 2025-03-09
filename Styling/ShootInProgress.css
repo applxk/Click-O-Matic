@@ -235,12 +235,17 @@ video {
   }
 
   .video-container {
-    width: 100%;
-    transform: scale(1);
-    transform-origin: top center;
+    width: 90%;
+    height: auto;
+    max-height: 240px; /* Ensures the video is not too tall */
     margin-top: 20px;
     margin-bottom: -200px;
-    margin-left: 0px;
+  }
+
+  video {
+    width: 100%;
+    height: auto;
+    max-height: 240px; /* Keeps the video from becoming a vertical rectangle */
   }
 
   .countdown-timer {
